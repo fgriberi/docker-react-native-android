@@ -18,6 +18,9 @@ A 🐳 docker image for building ⚛ React Native Apps (Android only)
 # The below will run the container and open up a bash session in side the container
 $ docker run --rm -it -v /path/to/my/react-native-app:/app jaydp17/react-native-android:latest bash
 
+# install Android SDK licences
+$ yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.3"
+
 # cd into the project
 $ cd /app
 
@@ -31,3 +34,15 @@ $ cd android
 $ ./gradlew assembleRelease
 ```
 Once the build is successful, you can find the apk in `app/build/outputs/apk/` directory.
+
+
+## How to get the apk from the Docker container?
+```sh
+# Get the docker container id
+$ docker ps
+CONTAINER ID        IMAGE               ...
+6c4aa62bfe2b        375204ce8def        ...
+
+# Copy the apk file to your location
+$ docker cp 6c4aa62bfe2b:/app/android/app/build/outputs/apk/release/app-release.apk /path/app-release.apk
+```
